@@ -1,7 +1,7 @@
 // src/Components/ProductList.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Form, Dropdown, Card, Button } from 'react-bootstrap';
 import { FaShoppingCart, FaHistory } from 'react-icons/fa'; // Thêm FaHistory
@@ -16,6 +16,8 @@ const ProductList: React.FC = () => {
     const [cart, setCart] = useState<ICart | null>(null);
     const [user, setUser] = useState<IAccount | null>(null);
 
+
+    const navigate = useNavigate();
     // Lấy thông tin người dùng từ sessionStorage
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
@@ -180,6 +182,13 @@ const ProductList: React.FC = () => {
                     <Link to="/order-history">
                         <FaHistory size={30} className="cart-icon" />
                     </Link>
+                    <Button className='ms-3' onClick={() => {
+                        sessionStorage.removeItem("auth");
+                        sessionStorage.removeItem("userRole");
+                        navigate("/");
+                    }} variant="warning">
+                        Logout
+                    </Button>
                 </Col>
             </Row>
 
