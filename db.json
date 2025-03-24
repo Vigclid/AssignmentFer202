@@ -71,6 +71,14 @@
       "password": "123456",
       "role": "user",
       "status": "active"
+    },
+    {
+      "id": 9,
+      "email": "ngandttds180213@fpt.edu.vn",
+      "username": "ngandttds180213",
+      "password": "123456",
+      "role": "user",
+      "status": "active"
     }
   ],
   "reviews": [
@@ -97,14 +105,30 @@
       "rating": 4,
       "comment": "kkaaa",
       "date": "2025-03-24T15:54:39.196Z"
+    },
+    {
+      "id": "a5f6",
+      "userId": "2",
+      "productId": "2",
+      "rating": 5,
+      "comment": "bla",
+      "date": "2025-03-24T20:14:21.767Z"
+    },
+    {
+      "id": "933b",
+      "userId": 9,
+      "productId": "1",
+      "rating": 5,
+      "comment": "bla",
+      "date": "2025-03-24T20:24:43.624Z"
     }
   ],
   "products": [
     {
       "id": "1",
-      "name": "Áo phông nam cao cấp",
-      "price": 250000,
-      "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+      "name": "Áo phông nam cao cap",
+      "price": 250005,
+      "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trau.",
       "imageUrl": "/images/ao-phong-nam.jpg",
       "reviews": [
         1,
@@ -113,18 +137,20 @@
         "7c5c",
         "776c",
         "3fc3",
-        "2d9e"
+        "2d9e",
+        "933b"
       ]
     },
     {
       "id": "2",
-      "name": "Quần jeans nữ skinny",
+      "name": "Quần jeans nữ skimmy",
       "price": 450000,
       "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
       "imageUrl": "/images/quan-jeans-nu.jpg",
       "reviews": [
         2,
-        4
+        4,
+        "a5f6"
       ]
     },
     {
@@ -333,13 +359,29 @@
     },
     {
       "user": 2,
-      "items": [],
-      "total": 0,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 2
+        }
+      ],
+      "total": 900000,
       "id": "2-1742820746782"
     },
     {
       "id": "6-1742837888053",
       "user": 6,
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 1
+        }
+      ],
+      "total": 250000
+    },
+    {
+      "id": "9-1742847861541",
+      "user": 9,
       "items": [],
       "total": 0
     }
