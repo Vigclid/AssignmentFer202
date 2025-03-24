@@ -41,7 +41,7 @@
       "status": "inactive"
     },
     {
-      "id": 6,
+      "id": "6",
       "email": "sonkksondepzai@gmail.com",
       "username": "121212",
       "password": "121212",
@@ -113,43 +113,153 @@
   ],
   "paymentHistories": [
     {
-      "id": "1",
-      "userId": 1,
-      "products": [
-        1,
-        2
-      ],
-      "total": 1050000,
-      "date": "2024-03-18"
-    },
-    {
-      "id": "2",
+      "id": 1742826032342,
       "userId": 2,
       "products": [
-        2
+        {
+          "id": "2",
+          "name": "Quần jeans nữ skinny",
+          "price": 450000,
+          "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+          "imageUrl": "/images/quan-jeans-nu.jpg",
+          "reviews": [
+            2,
+            4
+          ]
+        },
+        {
+          "id": "1",
+          "name": "Áo phông nam cao cấp",
+          "price": 250000,
+          "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+          "imageUrl": "/images/ao-phong-nam.jpg",
+          "reviews": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Giày thể thao unisex",
+          "price": 800000,
+          "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+          "imageUrl": "/images/giay-the-thao.jpg",
+          "reviews": []
+        }
       ],
-      "total": 450000,
-      "date": "2024-03-22"
-    }
-  ],
-  "cartItems": [
-    {
-      "user": 1,
-      "product": 1,
-      "quantity": 2,
-      "id": "1e90"
+      "total": 6850000,
+      "date": "2025-03-24"
     },
     {
-      "user": 1,
-      "product": 2,
-      "quantity": 1,
-      "id": "1c16"
+      "id": 1742826151582,
+      "userId": 2,
+      "products": [
+        {
+          "id": "3",
+          "name": "Giày thể thao unisex",
+          "price": 800000,
+          "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+          "imageUrl": "/images/giay-the-thao.jpg",
+          "reviews": []
+        },
+        {
+          "id": "1",
+          "name": "Áo phông nam cao cấp",
+          "price": 250000,
+          "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+          "imageUrl": "/images/ao-phong-nam.jpg",
+          "reviews": [
+            1,
+            3
+          ]
+        }
+      ],
+      "total": 3950000,
+      "date": "2025-03-24"
     },
     {
-      "user": 2,
-      "product": 3,
-      "quantity": 1,
-      "id": "bf09"
+      "id": 1742826879478,
+      "userId": 2,
+      "products": [
+        {
+          "id": "2",
+          "name": "Quần jeans nữ skinny",
+          "price": 450000,
+          "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+          "imageUrl": "/images/quan-jeans-nu.jpg",
+          "reviews": [
+            2,
+            4
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Giày thể thao unisex",
+          "price": 800000,
+          "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+          "imageUrl": "/images/giay-the-thao.jpg",
+          "reviews": []
+        }
+      ],
+      "total": 5900000,
+      "date": "2025-03-24"
+    },
+    {
+      "id": 1742826992886,
+      "userId": 2,
+      "products": [
+        {
+          "id": "1",
+          "name": "Áo phông nam cao cấp",
+          "price": 250000,
+          "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+          "imageUrl": "/images/ao-phong-nam.jpg",
+          "reviews": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Giày thể thao unisex",
+          "price": 800000,
+          "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+          "imageUrl": "/images/giay-the-thao.jpg",
+          "reviews": []
+        }
+      ],
+      "total": 2350000,
+      "date": "2025-03-24"
+    },
+    {
+      "id": 1742827497111,
+      "userId": 2,
+      "products": [
+        {
+          "id": "1",
+          "name": "Áo phông nam cao cấp",
+          "price": 250000,
+          "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+          "imageUrl": "/images/ao-phong-nam.jpg",
+          "reviews": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "2",
+          "name": "Quần jeans nữ skinny",
+          "price": 450000,
+          "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+          "imageUrl": "/images/quan-jeans-nu.jpg",
+          "reviews": [
+            2,
+            4
+          ]
+        }
+      ],
+      "total": 3350000,
+      "date": "2025-03-24"
     }
   ],
   "carts": [
@@ -157,16 +267,26 @@
       "user": 1,
       "items": [
         {
-          "productId": 1,
+          "productId": "2",
           "quantity": 2
         },
         {
-          "productId": 2,
-          "quantity": 1
+          "productId": "1",
+          "quantity": 4
+        },
+        {
+          "productId": "3",
+          "quantity": 5
         }
       ],
-      "total": 950000,
+      "total": 5900000,
       "id": "2183"
+    },
+    {
+      "user": 2,
+      "items": [],
+      "total": 0,
+      "id": "2-1742820746782"
     }
   ]
 }
