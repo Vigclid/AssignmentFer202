@@ -24,6 +24,7 @@ export interface IProduct {
   reviews: string[]; // reviews are stored as array of review IDs (strings)
 }
 
+// src/Interfaces/ProjectInterfaces.ts
 export interface IPaymentHistory {
   id: number;
   userId: number;
