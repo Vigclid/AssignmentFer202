@@ -63,14 +63,6 @@
       "password": "123456",
       "role": "user",
       "status": "active"
-    },
-    {
-      "id": "8",
-      "email": "sondnde180896@fpt.edu.vn",
-      "username": "sondnde180896",
-      "password": "123456",
-      "role": "user",
-      "status": "active"
     }
   ],
   "reviews": [
@@ -91,12 +83,12 @@
       "date": "2025-03-24T15:40:40.318Z"
     },
     {
-      "id": "2d9e",
+      "id": "410d",
       "userId": "7",
       "productId": "1",
       "rating": 4,
-      "comment": "kkaaa",
-      "date": "2025-03-24T15:54:39.196Z"
+      "comment": "keke",
+      "date": "2025-03-24T21:06:11.780Z"
     }
   ],
   "products": [
@@ -113,7 +105,7 @@
         "7c5c",
         "776c",
         "3fc3",
-        "2d9e"
+        "410d"
       ]
     },
     {
@@ -177,7 +169,7 @@
     },
     {
       "id": "1742826151582",
-      "userId": 2,
+      "userId": 7,
       "products": [
         {
           "id": "3",
@@ -323,6 +315,17 @@
         }
       ],
       "total": 450000
+    },
+    {
+      "user": 7,
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 2
+        }
+      ],
+      "total": 500000,
+      "id": "7-1742849050314"
     }
   ]
 }
