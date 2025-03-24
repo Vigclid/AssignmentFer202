@@ -1,126 +1,175 @@
 {
-    "accounts": [
-      {
-        "id": 1,
-        "username": "john_doe",
-        "email": "john.doe@example.com",
-        "password": "121212",
-        "role": "user",
-        "status": "active"
-      },
-      {
-        "id": 2,
-        "username": "jane_smith",
-        "email": "jane.smith@example.com",
-        "password": "131313",
-        "role": "user",
-        "status": "active"
-      },
-      {
-        "id": 3,
-        "username": "admin_user",
-        "email": "admin@example.com",
-        "password": "141415",
-        "role": "admin",
-        "status": "active"
-      },
-      {
-        "id": 4,
-        "username": "manager_user",
-        "email": "manager@example.com",
-        "password": "232323",
-        "role": "manager",
-        "status": "active"
-      },
-      {
-        "id": 5,
-        "username": "inactive_user",
-        "email": "inactive@example.com",
-        "password": "333333",
-        "role": "user",
-        "status": "inactive"
-      }
-    ],
-    "reviews": [
-      {
-        "id": 1,
-        "userId": 1,
-        "rating": 5,
-        "comment": "Sản phẩm tuyệt vời, rất đáng tiền!",
-        "date": "2024-03-15"
-      },
-      {
-        "id": 2,
-        "userId": 2,
-        "rating": 4,
-        "comment": "Chất lượng tốt, giao hàng nhanh.",
-        "date": "2024-03-10"
-      },
-      {
-        "id": 3,
-        "userId": 1,
-        "rating": 3,
-        "comment": "Bình thường, không có gì nổi bật.",
-        "date": "2024-03-12"
-      },
-      {
-        "id": 4,
-        "userId": 2,
-        "rating": 2,
-        "comment": "Không hài lòng lắm, chất lượng hơi kém",
-        "date": "2024-03-20"
-      }
-    ],
-    "products": [
-      {
-        "id": 1,
-        "name": "Áo phông nam cao cấp",
-        "price": 250000,
-        "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
-        "imageUrl": "/images/ao-phong-nam.jpg",
-        "reviews": [1, 3]
-      },
-      {
-        "id": 2,
-        "name": "Quần jeans nữ skinny",
-        "price": 450000,
-        "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
-        "imageUrl": "/images/quan-jeans-nu.jpg",
-        "reviews": [2, 4]
-      },
-      {
-        "id": 3,
-        "name": "Giày thể thao unisex",
-        "price": 800000,
-        "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
-        "imageUrl": "/images/giay-the-thao.jpg",
-        "reviews": []
-      }
-    ],
-    "paymentHistories": [
-      {
-        "id": 1,
-        "userId": 1,
-        "products": [1, 2],
-        "total": 1050000,
-        "date": "2024-03-18"
-      },
-      {
-        "id": 2,
-        "userId": 2,
-        "products": [2],
-        "total": 450000,
-        "date": "2024-03-22"
-      }
-    ],
-    "carts": [
-      {
-        "user" : 1,
-        "items": [
-          { "productId": 1, "quantity": 2 },
-          { "productId": 2, "quantity": 1 }
-        ],
-        "total": 950000
-      }
-    ]
-  }
+  "accounts": [
+    {
+      "id": "1",
+      "username": "john_doe",
+      "email": "john.doe@example.com",
+      "password": "121212",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "id": "2",
+      "username": "jane_smith",
+      "email": "jane.smith@example.com",
+      "password": "131313",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "username": "admin_user",
+      "email": "admin@example.com",
+      "password": "141415",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "id": "4",
+      "username": "manager_user",
+      "email": "manager@example.com",
+      "password": "232323",
+      "role": "manager",
+      "status": "active"
+    },
+    {
+      "id": "5",
+      "username": "inactive_user",
+      "email": "inactive@example.com",
+      "password": "333333",
+      "role": "user",
+      "status": "inactive"
+    },
+    {
+      "id": 6,
+      "email": "sonkksondepzai@gmail.com",
+      "username": "121212",
+      "password": "121212",
+      "role": "user",
+      "status": "active"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "userId": 1,
+      "rating": 5,
+      "comment": "Sản phẩm tuyệt vời, rất đáng tiền!",
+      "date": "2024-03-15"
+    },
+    {
+      "id": "2",
+      "userId": 2,
+      "rating": 4,
+      "comment": "Chất lượng tốt, giao hàng nhanh.",
+      "date": "2024-03-10"
+    },
+    {
+      "id": "3",
+      "userId": 1,
+      "rating": 3,
+      "comment": "Bình thường, không có gì nổi bật.",
+      "date": "2024-03-12"
+    },
+    {
+      "id": "4",
+      "userId": 2,
+      "rating": 2,
+      "comment": "Không hài lòng lắm, chất lượng hơi kém",
+      "date": "2024-03-20"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Áo phông nam cao cấp",
+      "price": 250000,
+      "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+      "imageUrl": "/images/ao-phong-nam.jpg",
+      "reviews": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Quần jeans nữ skinny",
+      "price": 450000,
+      "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+      "imageUrl": "/images/quan-jeans-nu.jpg",
+      "reviews": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Giày thể thao unisex",
+      "price": 800000,
+      "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+      "imageUrl": "/images/giay-the-thao.jpg",
+      "reviews": []
+    }
+  ],
+  "paymentHistories": [
+    {
+      "id": "1",
+      "userId": 1,
+      "products": [
+        1,
+        2
+      ],
+      "total": 1050000,
+      "date": "2024-03-18"
+    },
+    {
+      "id": "2",
+      "userId": 2,
+      "products": [
+        2
+      ],
+      "total": 450000,
+      "date": "2024-03-22"
+    }
+  ],
+  "carts": [
+    {
+      "user": 1,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 2
+        },
+        {
+          "productId": "1",
+          "quantity": 4
+        },
+        {
+          "productId": "3",
+          "quantity": 5
+        }
+      ],
+      "total": 5900000,
+      "id": "2183"
+    },
+    {
+      "user": 2,
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 6
+        },
+        {
+          "productId": "2",
+          "quantity": 10
+        },
+        {
+          "productId": "3",
+          "quantity": 10
+        }
+      ],
+      "total": 14000000,
+      "id": "2-1742820746782"
+    }
+  ]
+}
