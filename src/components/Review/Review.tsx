@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
-import { FaStar, FaStarHalfAlt, FaEdit, FaTrash } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaEdit, FaTrash, FaComments } from "react-icons/fa";
 import { toast } from "react-toastify";
 import {
   hasUserPurchased,
@@ -14,6 +14,8 @@ import {
   UpdateReviewData,
 } from "./ReviewAPI";
 import { IAccount } from "../../Interfaces/ProjectInterfaces";
+import "./Review.css";
+import "../../css/shared-styles.css";
 
 interface ReviewProps {
   productId: string | undefined;
@@ -202,7 +204,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
 
     if (isEditing) {
       return (
-        <div key={review.id} className="border-bottom mb-3 pb-3">
+        <div key={review.id} className="glass-card border-bottom mb-3 pb-3">
           <Form onSubmit={handleEditSubmit}>
             <Form.Group className="mb-3">
               <div className="star-rating">
@@ -219,6 +221,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
                 value={editingReview.comment}
                 onChange={(e) => setEditingReview({ ...editingReview, comment: e.target.value })}
                 required
+                className="glass-input"
               />
             </Form.Group>
 
@@ -236,15 +239,15 @@ const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
     }
 
     return (
-      <div key={review.id} className="border-bottom mb-3 pb-3">
+      <div key={review.id} className="glass-card border-bottom mb-3 pb-3">
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex flex-column">
             <div className="mb-1">{renderStars(review.rating)}</div>
-            <strong className="text-primary">{review.username}</strong>
+            <strong className="review-author text-light">{review.username}</strong>
           </div>
           <div className="d-flex align-items-center">
             {isOwnReview && (
-              <div className="d-flex gap-2 me-3">
+              <div className="review-actions">
                 <Button variant="outline-primary" size="sm" onClick={() => setEditingReview(review)}>
                   <FaEdit />
                 </Button>
@@ -253,10 +256,10 @@ const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
                 </Button>
               </div>
             )}
-            <small className="text-muted">{new Date(review.date).toLocaleString("vi-VN")}</small>
+            <small className="review-date text-light-subtle">{new Date(review.date).toLocaleString("vi-VN")}</small>
           </div>
         </div>
-        <p className="mt-2 mb-0">{review.comment}</p>
+        <p className="review-content text-light-muted mt-3">{review.comment}</p>
       </div>
     );
   };
@@ -268,62 +271,69 @@ const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
   return (
     <div className="reviews-section">
       {sessionUser && !editingReview && canReview && !hasAlreadyReviewed && (
-        <Card className="mb-4">
+        <Card className="glass-card mb-4">
           <Card.Body>
-            <Card.Title>Write a Review</Card.Title>
+            <Card.Title className="text-light">
+              <FaComments className="me-2" /> Write a Review
+            </Card.Title>
             <Form onSubmit={handleReviewSubmit}>
               <Form.Group className="mb-3">
-                <Form.Label>Rating</Form.Label>
+                <Form.Label className="text-light">Rating</Form.Label>
                 <div className="star-rating">
                   {renderStars(newReview.rating, true, (rating) => setNewReview({ ...newReview, rating }))}
                 </div>
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Comment</Form.Label>
+                <Form.Label className="text-light">Comment</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
                   value={newReview.comment}
                   onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                   required
+                  className="glass-input"
                 />
               </Form.Group>
 
-              <Button type="submit" variant="primary">
+              <Button type="submit" variant="primary" className="glass-button">
                 Submit Review
               </Button>
             </Form>
           </Card.Body>
         </Card>
       )}
+
       {sessionUser && !canReview && (
-        <Card className="mb-4">
+        <Card className="glass-card mb-4">
           <Card.Body>
-            <Card.Text className="text-muted">You can only review products that you have purchased.</Card.Text>
+            <Card.Text className="text-light-muted">You can only review products that you have purchased.</Card.Text>
           </Card.Body>
         </Card>
       )}
+
       {sessionUser && canReview && hasAlreadyReviewed && !editingReview && (
-        <Card className="mb-4">
+        <Card className="glass-card mb-4">
           <Card.Body>
-            <Card.Text className="text-muted">
+            <Card.Text className="text-light-muted">
               You have already reviewed this product. You can edit or delete your review below.
             </Card.Text>
           </Card.Body>
         </Card>
       )}
 
-      <Card>
+      <Card className="glass-card">
         <Card.Body>
-          <Card.Title>Reviews</Card.Title>
-          <div className="d-flex align-items-center mb-3">
-            {renderStars(getAverageRating(), false, undefined, 36)}
-            <span className="ms-2">({reviews.length} reviews)</span>
+          <Card.Title className="text-light d-flex align-items-center">
+            <FaComments className="me-2" /> Reviews
+          </Card.Title>
+          <div className="rating-summary">
+            <div className="average-rating">{renderStars(getAverageRating(), false, undefined, 36)}</div>
+            <span className="rating-count text-light-muted">({reviews.length} reviews)</span>
           </div>
 
           {reviews.length === 0 ? (
-            <p>No reviews yet. Be the first to review this product!</p>
+            <p className="no-reviews text-light-muted">No reviews yet. Be the first to review this product!</p>
           ) : (
             reviews.map((review) => renderReviewItem(review))
           )}

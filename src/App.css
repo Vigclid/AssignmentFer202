@@ -1,8 +1,44 @@
-.custom-link {
-  text-decoration: none; /* Bỏ gạch chân */
-  color: rgba(0, 0, 0, 0.5); /* Màu xám mờ */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #040405 0%, #1a2229 100%);
 }
 
-.custom-link:hover {
-  color: rgba(0, 0, 0, 0.7); /* Đậm hơn khi hover */
+.main-content {
+  flex: 1 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(135deg, #36383a 0%, #1e1f20 100%);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add subtle pattern overlay */
+.app::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.02' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
 }

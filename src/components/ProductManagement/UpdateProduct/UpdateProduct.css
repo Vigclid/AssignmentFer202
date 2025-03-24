@@ -1,4 +1,15 @@
-.my-5 {
-    margin-top: 3rem !important;
-    margin-bottom: 3rem !important;
+/* Import the AddProduct styles since they share the same form layout */
+@import "../AddProduct/AddProduct.css";
+
+/* Additional or override styles specific to UpdateProduct if needed */
+.update-header-title {
+  color: #ffc107; /* Different color to distinguish from Add Product */
+}
+
+.update-btn {
+  background: rgba(255, 193, 7, 0.9) !important;
+}
+
+.update-btn:hover {
+  background: rgba(255, 193, 7, 1) !important;
 }

@@ -63,7 +63,6 @@
       "password": "123456",
       "role": "user",
       "status": "active"
-
     },
     {
       "id": "8",
@@ -77,6 +76,14 @@
       "id": "9",
       "email": "ngandttds180213@fpt.edu.vn",
       "username": "ngandttds180213",
+      "password": "123456",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "email": "huanroses2k@gmail.com",
+      "username": "huanroses2k",
       "password": "123456",
       "role": "user",
       "status": "active"
@@ -380,6 +387,23 @@
       "user": 9,
       "items": [],
       "total": 0
+    },
+    {
+      "user": 10,
+      "items": [],
+      "total": 0,
+      "id": "10-1742855953621"
+    },
+    {
+      "user": 7,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1
+        }
+      ],
+      "total": 450000,
+      "id": "7-1742857358503"
     }
   ]
 }
