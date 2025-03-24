@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Changed Link to useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Form, Dropdown, Card, Button } from 'react-bootstrap';
 import { FaShoppingCart, FaHistory } from 'react-icons/fa';
@@ -16,6 +16,9 @@ const ProductList: React.FC = () => {
     const [user, setUser] = useState<IAccount | null>(null);
     const navigate = useNavigate(); // Added useNavigate
 
+
+    const navigate = useNavigate();
+  
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
         if (authData) {
@@ -176,6 +179,7 @@ const ProductList: React.FC = () => {
                             </Button>
                         </>
                     )}
+
                 </Col>
             </Row>
 
