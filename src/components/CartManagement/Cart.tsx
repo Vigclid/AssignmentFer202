@@ -1,8 +1,7 @@
-// src/Components/CartManagement/Cart.tsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Container, Row, Col, Card, Modal } from "react-bootstrap";
-import { IProduct, ICart, ICartItem, IAccount, IPaymentHistory } from "../../Interfaces/ProjectInterfaces";
+import { IProduct, ICart, IAccount, IPaymentHistory } from "../../Interfaces/ProjectInterfaces";
 import { useNavigate } from "react-router-dom";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 
@@ -24,11 +23,6 @@ export const Cart = () => {
     const [success, setSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
 
-
-
-
-
-    // Lấy thông tin người dùng từ sessionStorage
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
         if (authData) {
@@ -37,11 +31,10 @@ export const Cart = () => {
 
 
         } else {
-            navigate("/"); // Chuyển hướng về trang đăng nhập nếu chưa đăng nhập
+            navigate("/");
         }
     }, [navigate]);
 
-    // Tải danh sách sản phẩm và giỏ hàng
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -70,7 +63,6 @@ export const Cart = () => {
         if (user) fetchCart();
     }, [user]);
 
-    // Cập nhật giỏ hàng trên server và sessionStorage
     const updateCart = async (updatedCart: ICart) => {
         if (!user) return;
         console.log("Updated cart:", updatedCart);
@@ -89,7 +81,6 @@ export const Cart = () => {
         }
     };
 
-    // Tăng số lượng sản phẩm
     const increaseQuantity = (productId: string) => {
         if (!cart) return;
 
@@ -108,7 +99,6 @@ export const Cart = () => {
         updateCart(updatedCart);
     };
 
-    // Giảm số lượng sản phẩm (nếu số lượng = 1 thì xóa luôn)
     const decreaseQuantity = (productId: string) => {
         if (!cart) return;
 
@@ -129,7 +119,6 @@ export const Cart = () => {
         updateCart(updatedCart);
     };
 
-    // Xóa sản phẩm khỏi giỏ hàng
     const removeItem = (productId: string) => {
         if (!cart) return;
 
@@ -144,10 +133,10 @@ export const Cart = () => {
         updateCart(updatedCart);
     };
 
-    // Xử lý thanh toán
     const handleCheckout = () => {
         setShowPaymentModal(true);
     };
+
 
     // Xác nhận đã thanh toán
     const confirmPayment = async ({ transcode, parsedUser, parsedCart }: { transcode: number, parsedUser: IAccount, parsedCart: ICart }) => {
@@ -158,6 +147,7 @@ export const Cart = () => {
             products: await Promise.all(parsedCart.items.map(async (item) => {
                 const _product : IProduct[] = await axios.get(`http://localhost:5000/products`).then(res => res.data);
                 const product = _product.find(p => p.id === item.productId);
+
                 return product || {
                     id: item.productId,
                     name: "Product does not exist",
@@ -166,13 +156,15 @@ export const Cart = () => {
                     imageUrl: "",
                     reviews: []
                 };
+
             })),
             total: parsedCart.total,
+
             date: new Date().toISOString().split('T')[0]
         };
     
         try {
-            
+
             await axios.post(`http://localhost:5000/paymentHistories`, paymentHistory);
     
             // Xóa giỏ hàng
@@ -180,6 +172,7 @@ export const Cart = () => {
             await axios.put(`http://localhost:5000/carts/${parsedCart.id}`, updatedCart);
             sessionStorage.setItem(`cart_${parsedUser.id}`, JSON.stringify(updatedCart));
             // Đóng modal
+
             setShowPaymentModal(false);
             alert("Payment successful! Order has been saved to history.");
         } catch (error) {
@@ -188,13 +181,13 @@ export const Cart = () => {
     };
 
 
+
     const QR = "https://img.vietqr.io/image/" + MY_BANK.BANK_ID + "-" +
         MY_BANK.ACCOUNT_NO + "-" + MY_BANK.TEMPLATE + ".png?" +
         "&addInfo=" + user?.id + user?.role + "&amount=" + cart?.total + "&accountName=" + MY_BANK.ACCOUNT_NAME
     const AppScirpt = "https://script.googleusercontent.com/macros/echo?user_content_key=BkINLbtlTn49vfGL7uDFErRGyFRs-i-0j4f98qZpOrySgH3A4XWudFvBAnnOOluUkSRIgUXC0-Ikkbmzr1rJCIA5e_tt4tP5m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnDzsAlD6ug9FsXOxdoyN-BO226sy0AJl2UoKLOqjRp3h9KpIYTSbk9vet7j5ea-Rg4Ol3lRZLwCEBiCs-ictM-yoBFes96d7Hg&lib=MLQuxm21goJkl3evos7ArRqisV3GZFA2q"
 
 
-    // Quay lại trang danh sách sản phẩm
     const handleBackToProducts = () => {
         navigate("/products");
     };
@@ -328,7 +321,6 @@ export const Cart = () => {
                 </div>
             )}
 
-            {/* Modal hiển thị QR code và xác nhận thanh toán */}
             <Modal show={showPaymentModal} onHide={() => setShowPaymentModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Payment</Modal.Title>
