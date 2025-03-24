@@ -126,9 +126,9 @@
   "products": [
     {
       "id": "1",
-      "name": "Áo phông nam cao cap",
+      "name": "T-shirt for professional developer",
       "price": 250005,
-      "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trau.",
+      "description": "This is one of the best our product, providing AI Agent, supporting while seating of the chair for coding.",
       "imageUrl": "/images/ao-phong-nam.jpg",
       "reviews": [
         1,
@@ -143,9 +143,9 @@
     },
     {
       "id": "2",
-      "name": "Quần jeans nữ skimmy",
+      "name": "Skimmy girl jean",
       "price": 450000,
-      "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+      "description": "Good jean, Good cotton for good girl, You'll see how beauty you are!",
       "imageUrl": "/images/quan-jeans-nu.jpg",
       "reviews": [
         2,
@@ -155,20 +155,18 @@
     },
     {
       "id": "3",
-      "name": "Giày thể thao unisexxxxxxx",
+      "name": "Unisex sport shooes",
       "price": 80000,
-      "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+      "description": "The best shooes ever that Ronaldo begging to buy it!",
       "imageUrl": "/images/giay-the-thao.jpg",
       "reviews": []
     },
     {
-
       "id": "4",
       "name": "Testing payment product",
       "price": 10000,
       "description": "Developer viết vài chữ TypeScript thì không biết gì về ReactJs",
       "imageUrl": "/images/testing.jpg",
-
       "reviews": []
     }
   ],
@@ -336,7 +334,6 @@
         }
       ],
       "total": 10000,
-
       "date": "2025-03-24"
     }
   ],
@@ -374,13 +371,8 @@
     {
       "id": "6-1742837888053",
       "user": 6,
-      "items": [
-        {
-          "productId": "2",
-          "quantity": 1
-        }
-      ],
-      "total": 450000
+      "items": [],
+      "total": 0
     },
     {
       "id": "9-1742847861541",

@@ -17,7 +17,7 @@ const ProductList: React.FC = () => {
 
 
     const navigate = useNavigate();
-  
+
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
         if (authData) {
@@ -138,6 +138,13 @@ const ProductList: React.FC = () => {
         ? cart.items.reduce((total, item) => total + item.quantity, 0)
         : 0;
 
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("auth");
+        sessionStorage.removeItem(`cart_${user?.id}`);
+        sessionStorage.removeItem(`userRole`);
+        navigate("/");
+    };
     return (
         <Container className="product-list-container">
             <Row className="mb-4 align-items-center">
@@ -182,7 +189,9 @@ const ProductList: React.FC = () => {
                             </Button>
                         </>
                     )}
-
+                    <Button variant="warning" onClick={() => handleLogout()} className='ms-2'>
+                        Logout
+                    </Button>
                 </Col>
             </Row>
 
@@ -211,6 +220,7 @@ const ProductList: React.FC = () => {
                                                 Add to Cart
                                             </Button>
                                         )}
+
                                     </div>
                                 </Card.Body>
                             </Card>
