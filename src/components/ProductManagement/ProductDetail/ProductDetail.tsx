@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { IProduct } from "../../../Interfaces/ProjectInterfaces";
@@ -9,17 +8,16 @@ import "./ProductDetail.css";
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [product, setProduct] = useState<IProduct | null>(null);
   const [sessionUser, setSessionUser] = useState<any>(null);
 
-  // Fetch product details and session user
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const productResponse = await axios.get(`http://localhost:5000/products/${id}`);
         setProduct(productResponse.data);
 
-        // Get session user from sessionStorage where auth data is stored
         const userSession = sessionStorage.getItem("auth");
         if (userSession) {
           setSessionUser(JSON.parse(userSession));
@@ -31,16 +29,36 @@ const ProductDetail: React.FC = () => {
     fetchProduct();
   }, [id]);
 
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await axios.delete(`http://localhost:5000/products/${id}`);
+        navigate(-1);
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
+    }
+  };
+
   if (!product) {
     return (
       <Container>
-        <p>Đang tải...</p>
+        <p>Loading...</p>
       </Container>
     );
   }
 
   return (
     <Container className="product-detail-container">
+      {/* Back to product list button */}
+      <Row className="mb-3">
+        <Col className="text-start">
+          <Button variant="secondary" onClick={() => navigate("/products")}>
+            Back to product list
+          </Button>
+        </Col>
+      </Row>
+
       {/* Product Detail Card */}
       <Row className="mb-4">
         <Col>
@@ -57,14 +75,25 @@ const ProductDetail: React.FC = () => {
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>
-                    <strong>Giá: </strong>
-                    {product.price.toLocaleString("vi-VN")} VNĐ
+                    <strong>Price: </strong>
+                    {product.price.toLocaleString("vi-VN")} VND
                   </Card.Text>
                   <Card.Text>
-                    <strong>Mô tả: </strong>
+                    <strong>Description: </strong>
                     {product.description}
                   </Card.Text>
-                  <Button variant="success">Thêm vào giỏ hàng</Button>
+                  {sessionUser?.role === 'admin' ? (
+                    <div className="d-flex justify-content-between">
+                      <Button variant="warning" onClick={() => navigate(`/products/update/${id}`)}>
+                        Update
+                      </Button>
+                      <Button variant="danger" onClick={handleDelete}>
+                        Delete
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button variant="success">Add to cart</Button>
+                  )}
                 </Card.Body>
               </Col>
             </Row>
@@ -75,7 +104,7 @@ const ProductDetail: React.FC = () => {
       {/* Reviews Section */}
       <Row>
         <Col>
-          <h3>Đánh giá sản phẩm</h3>
+          <h3>Product Reviews</h3>
           <Review productId={id} sessionUser={sessionUser} />
         </Col>
       </Row>

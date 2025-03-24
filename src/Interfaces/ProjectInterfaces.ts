@@ -1,3 +1,4 @@
+
 export interface IProduct {
   id: string; // ID sản phẩm là string
   name: string;
