@@ -92,7 +92,9 @@ const ProductList: React.FC = () => {
 
     const addToCart = async (product: IProduct) => {
         if (!cart || !user) {
+
             alert("Please log in to add products to the cart!");
+
             return;
         }
 
@@ -127,7 +129,9 @@ const ProductList: React.FC = () => {
                 await axios.post("http://localhost:5000/carts", updatedCart);
             }
         } catch (error) {
+
             console.error("Error updating cart on the server:", error);
+
         }
     };
 
@@ -198,8 +202,10 @@ const ProductList: React.FC = () => {
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text>{product.price.toLocaleString('vi-VN')} VND</Card.Text>
                                     <div className="d-flex justify-content-between">
+
                                         <Button variant="primary" onClick={() => navigate(`/products/${product.id}`)}>
                                             View Details
+
                                         </Button>
                                         {user?.role !== 'admin' && (
                                             <Button variant="success" onClick={() => addToCart(product)}>

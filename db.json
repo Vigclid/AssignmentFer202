@@ -26,10 +26,10 @@
     },
     {
       "id": "4",
-      "username": "manager_user",
-      "email": "manager@example.com",
+      "username": "admin_user2",
+      "email": "admin2@example.com",
       "password": "232323",
-      "role": "manager",
+      "role": "admin",
       "status": "active"
     },
     {
@@ -155,18 +155,20 @@
     },
     {
       "id": "3",
-      "name": "Giày thể thao unisex",
-      "price": 800000,
+      "name": "Giày thể thao unisexxxxxxx",
+      "price": 80000,
       "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
       "imageUrl": "/images/giay-the-thao.jpg",
       "reviews": []
     },
     {
+
       "id": "4",
       "name": "Testing payment product",
       "price": 10000,
       "description": "Developer viết vài chữ TypeScript thì không biết gì về ReactJs",
       "imageUrl": "/images/testing.jpg",
+
       "reviews": []
     }
   ],
@@ -321,6 +323,7 @@
       "date": "2025-03-24"
     },
     {
+
       "id": 10091252,
       "userId": 6,
       "products": [
@@ -334,6 +337,7 @@
         }
       ],
       "total": 10000,
+
       "date": "2025-03-24"
     }
   ],
