@@ -26,10 +26,10 @@
     },
     {
       "id": "4",
-      "username": "manager_user",
-      "email": "manager@example.com",
+      "username": "admin_user2",
+      "email": "admin2@example.com",
       "password": "232323",
-      "role": "manager",
+      "role": "admin",
       "status": "active"
     },
     {
@@ -83,7 +83,7 @@
     {
       "id": "1",
       "name": "Áo phông nam cao cấp",
-      "price": 250000,
+      "price": 25000,
       "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
       "imageUrl": "/images/ao-phong-nam.jpg",
       "reviews": [
@@ -94,7 +94,7 @@
     {
       "id": "2",
       "name": "Quần jeans nữ skinny",
-      "price": 450000,
+      "price": 45000,
       "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
       "imageUrl": "/images/quan-jeans-nu.jpg",
       "reviews": [
@@ -104,16 +104,24 @@
     },
     {
       "id": "3",
-      "name": "Giày thể thao unisex",
-      "price": 800000,
+      "name": "Giày thể thao unisexxxxxxx",
+      "price": 80000,
       "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
       "imageUrl": "/images/giay-the-thao.jpg",
+      "reviews": []
+    },
+    {
+      "id": "1742843228878",
+      "name": "meo meo t-shirt ",
+      "price": 100000,
+      "description": "just a cat",
+      "imageUrl": "https://i.etsystatic.com/29819878/r/il/bfd50b/3326551237/il_fullxfull.3326551237_ii3h.jpg",
       "reviews": []
     }
   ],
   "paymentHistories": [
     {
-      "id": 1742826032342,
+      "id": "1742826032342",
       "userId": 2,
       "products": [
         {
@@ -151,7 +159,7 @@
       "date": "2025-03-24"
     },
     {
-      "id": 1742826151582,
+      "id": "1742826151582",
       "userId": 2,
       "products": [
         {
@@ -178,7 +186,7 @@
       "date": "2025-03-24"
     },
     {
-      "id": 1742826879478,
+      "id": "1742826879478",
       "userId": 2,
       "products": [
         {
@@ -205,7 +213,7 @@
       "date": "2025-03-24"
     },
     {
-      "id": 1742826992886,
+      "id": "1742826992886",
       "userId": 2,
       "products": [
         {
@@ -232,7 +240,7 @@
       "date": "2025-03-24"
     },
     {
-      "id": 1742827497111,
+      "id": "1742827497111",
       "userId": 2,
       "products": [
         {
@@ -259,6 +267,25 @@
         }
       ],
       "total": 3350000,
+      "date": "2025-03-24"
+    },
+    {
+      "id": 1742842779878,
+      "userId": 2,
+      "products": [
+        {
+          "id": "2",
+          "name": "Quần jeans nữ skinny",
+          "price": 450000,
+          "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+          "imageUrl": "/images/quan-jeans-nu.jpg",
+          "reviews": [
+            2,
+            4
+          ]
+        }
+      ],
+      "total": 1350000,
       "date": "2025-03-24"
     }
   ],
@@ -287,6 +314,17 @@
       "items": [],
       "total": 0,
       "id": "2-1742820746782"
+    },
+    {
+      "user": 3,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 9
+        }
+      ],
+      "total": 405000,
+      "id": "3-1742846673860"
     }
   ]
 }

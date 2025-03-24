@@ -1,8 +1,7 @@
-// src/Components/CartManagement/Cart.tsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Container, Row, Col, Card, Modal } from "react-bootstrap";
-import { IProduct, ICart, ICartItem, IAccount, IPaymentHistory } from "../../Interfaces/ProjectInterfaces";
+import { IProduct, ICart, IAccount, IPaymentHistory } from "../../Interfaces/ProjectInterfaces";
 import { useNavigate } from "react-router-dom";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 
@@ -13,18 +12,16 @@ export const Cart = () => {
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const navigate = useNavigate();
 
-    // Lấy thông tin người dùng từ sessionStorage
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
         if (authData) {
             const parsedUser: IAccount = JSON.parse(authData);
             setUser(parsedUser);
         } else {
-            navigate("/"); // Chuyển hướng về trang đăng nhập nếu chưa đăng nhập
+            navigate("/");
         }
     }, [navigate]);
 
-    // Tải danh sách sản phẩm và giỏ hàng
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -53,7 +50,6 @@ export const Cart = () => {
         if (user) fetchCart();
     }, [user]);
 
-    // Cập nhật giỏ hàng trên server và sessionStorage
     const updateCart = async (updatedCart: ICart) => {
         if (!user) return;
 
@@ -72,7 +68,6 @@ export const Cart = () => {
         }
     };
 
-    // Tăng số lượng sản phẩm
     const increaseQuantity = (productId: string) => {
         if (!cart) return;
 
@@ -91,7 +86,6 @@ export const Cart = () => {
         updateCart(updatedCart);
     };
 
-    // Giảm số lượng sản phẩm (nếu số lượng = 1 thì xóa luôn)
     const decreaseQuantity = (productId: string) => {
         if (!cart) return;
 
@@ -112,7 +106,6 @@ export const Cart = () => {
         updateCart(updatedCart);
     };
 
-    // Xóa sản phẩm khỏi giỏ hàng
     const removeItem = (productId: string) => {
         if (!cart) return;
 
@@ -127,18 +120,15 @@ export const Cart = () => {
         updateCart(updatedCart);
     };
 
-    // Xử lý thanh toán
     const handleCheckout = () => {
         setShowPaymentModal(true);
     };
 
-    // Xác nhận đã thanh toán
     const confirmPayment = async () => {
         if (!cart || !user) return;
 
-        // Lưu vào paymentHistories
         const paymentHistory: IPaymentHistory = {
-            id: Date.now(), // Sử dụng Date.now() để tạo ID kiểu number
+            id: Date.now(),
             userId: Number(user.id),
             products: cart.items.map(item => {
                 const product = products.find(p => p.id === item.productId);
@@ -148,21 +138,19 @@ export const Cart = () => {
                     price: 0,
                     description: "",
                     imageUrl: "",
-                    reviews: [] // Thêm reviews để khớp với IProduct
+                    reviews: []
                 };
-            }), // Lưu danh sách sản phẩm đầy đủ (IProduct[])
+            }),
             total: cart.total,
-            date: new Date().toISOString().split('T')[0] // Lấy ngày hiện tại (định dạng YYYY-MM-DD)
+            date: new Date().toISOString().split('T')[0]
         };
 
         try {
             await axios.post("http://localhost:5000/paymentHistories", paymentHistory);
 
-            // Xóa giỏ hàng
             const updatedCart: ICart = { ...cart, items: [], total: 0 };
             await updateCart(updatedCart);
 
-            // Đóng modal
             setShowPaymentModal(false);
             alert("Payment successful! Order has been saved to history.");
         } catch (error) {
@@ -170,7 +158,6 @@ export const Cart = () => {
         }
     };
 
-    // Quay lại trang danh sách sản phẩm
     const handleBackToProducts = () => {
         navigate("/products");
     };
@@ -241,7 +228,6 @@ export const Cart = () => {
                 </div>
             )}
 
-            {/* Modal hiển thị QR code và xác nhận thanh toán */}
             <Modal show={showPaymentModal} onHide={() => setShowPaymentModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Payment</Modal.Title>

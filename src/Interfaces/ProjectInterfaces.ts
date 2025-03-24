@@ -3,7 +3,7 @@ export interface IAccount {
   username: string;
   email: string;
   password?: string;
-  role: 'user' | 'manager' | 'admin';
+  role: 'user' | 'admin';
   status: string;
 }
 

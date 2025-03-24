@@ -97,7 +97,7 @@ const ProductList: React.FC = () => {
     // Thêm sản phẩm vào giỏ hàng
     const addToCart = async (product: IProduct) => {
         if (!cart || !user) {
-            alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+            alert("Please login to add products to cart!");
             return;
         }
 
@@ -132,7 +132,7 @@ const ProductList: React.FC = () => {
                 await axios.post("http://localhost:5000/carts", updatedCart);
             }
         } catch (error) {
-            console.error("Lỗi khi cập nhật giỏ hàng trên server:", error);
+            console.error("Error updating cart on server:", error);
         }
     };
 
@@ -203,7 +203,7 @@ const ProductList: React.FC = () => {
                                             <Button variant="primary">Xem chi tiết</Button>
                                         </Link>
                                         <Button variant="success" onClick={() => addToCart(product)}>
-                                            Thêm vào giỏ hàng
+                                            Add to cart
                                         </Button>
                                     </div>
                                 </Card.Body>
