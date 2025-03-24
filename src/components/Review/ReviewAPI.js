@@ -19,7 +19,6 @@ export const ReviewAPI = {
   addReview: async (productId, reviewData) => {
     // First, add the review to reviews collection with only essential data
     const reviewResponse = await axios.post(`${BASE_URL}/reviews`, {
-      id: reviewData.id,
       userId: reviewData.userId,
       productId: reviewData.productId,
       rating: reviewData.rating,
@@ -40,6 +39,32 @@ export const ReviewAPI = {
     await axios.patch(`${BASE_URL}/products/${productId}`, { reviews });
 
     return reviewResponse.data;
+  },
+
+  // Update review
+  updateReview: async (reviewId, reviewData) => {
+    const response = await axios.patch(`${BASE_URL}/reviews/${reviewId}`, {
+      rating: reviewData.rating,
+      comment: reviewData.comment,
+      date: new Date().toISOString(), // Update date when edited
+    });
+    return response.data;
+  },
+
+  // Delete review
+  deleteReview: async (productId, reviewId) => {
+    // First, remove the review from the product's reviews array
+    const productResponse = await axios.get(`${BASE_URL}/products/${productId}`);
+    const product = productResponse.data;
+    const updatedReviews = product.reviews.filter((id) => id !== reviewId);
+
+    // Update product with new reviews array
+    await axios.patch(`${BASE_URL}/products/${productId}`, {
+      reviews: updatedReviews,
+    });
+
+    // Then delete the review
+    await axios.delete(`${BASE_URL}/reviews/${reviewId}`);
   },
 
   // Get product reviews with user info

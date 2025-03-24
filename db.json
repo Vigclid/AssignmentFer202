@@ -89,6 +89,14 @@
       "rating": 1,
       "comment": "như hạch",
       "date": "2025-03-24T15:40:40.318Z"
+    },
+    {
+      "id": "2d9e",
+      "userId": "7",
+      "productId": "1",
+      "rating": 4,
+      "comment": "kkaaa",
+      "date": "2025-03-24T15:54:39.196Z"
     }
   ],
   "products": [
@@ -98,7 +106,15 @@
       "price": 250000,
       "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
       "imageUrl": "/images/ao-phong-nam.jpg",
-      "reviews": [1, 3, "fddd", "7c5c", "776c", "8075"]
+      "reviews": [
+        1,
+        3,
+        "fddd",
+        "7c5c",
+        "776c",
+        "3fc3",
+        "2d9e"
+      ]
     },
     {
       "id": "2",
@@ -106,7 +122,10 @@
       "price": 450000,
       "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
       "imageUrl": "/images/quan-jeans-nu.jpg",
-      "reviews": [2, 4]
+      "reviews": [
+        2,
+        4
+      ]
     },
     {
       "id": "3",
@@ -121,14 +140,19 @@
     {
       "id": "1",
       "userId": 1,
-      "products": [1, 2],
+      "products": [
+        1,
+        2
+      ],
       "total": 1050000,
       "date": "2024-03-18"
     },
     {
       "id": "2",
       "userId": 2,
-      "products": [2],
+      "products": [
+        2
+      ],
       "total": 450000,
       "date": "2024-03-22"
     }
