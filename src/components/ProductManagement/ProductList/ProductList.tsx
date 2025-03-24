@@ -14,7 +14,6 @@ const ProductList: React.FC = () => {
     const [sortOrder, setSortOrder] = useState<string>('default');
     const [cart, setCart] = useState<ICart | null>(null);
     const [user, setUser] = useState<IAccount | null>(null);
-    const navigate = useNavigate(); // Added useNavigate
 
 
     const navigate = useNavigate();

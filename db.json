@@ -73,7 +73,7 @@
       "status": "active"
     },
     {
-      "id": 9,
+      "id": "9",
       "email": "ngandttds180213@fpt.edu.vn",
       "username": "ngandttds180213",
       "password": "123456",
@@ -321,7 +321,7 @@
       "date": "2025-03-24"
     },
     {
-      "id": 10091252,
+      "id": "10091252",
       "userId": 6,
       "products": [
         {
@@ -373,11 +373,11 @@
       "user": 6,
       "items": [
         {
-          "productId": "1",
+          "productId": "2",
           "quantity": 1
         }
       ],
-      "total": 250000
+      "total": 450000
     },
     {
       "id": "9-1742847861541",
