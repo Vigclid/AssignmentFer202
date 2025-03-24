@@ -2,35 +2,92 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import { FaStar, FaStarHalfAlt, FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { ReviewAPI } from "./ReviewAPI";
+import {
+  hasUserPurchased,
+  hasUserReviewed,
+  getProductReviews,
+  addReview,
+  updateReview,
+  deleteReview,
+  ReviewWithUser,
+  AddReviewData,
+  UpdateReviewData,
+} from "./ReviewAPI";
+import { IAccount } from "../../Interfaces/ProjectInterfaces";
 
-const ReviewComponent = ({ productId, sessionUser }) => {
-  const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState({
+interface ReviewProps {
+  productId: string | undefined;
+  sessionUser: IAccount | null;
+}
+
+interface ReviewFormData {
+  rating: number;
+  comment: string;
+}
+
+const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
+  const [reviews, setReviews] = useState<ReviewWithUser[]>([]);
+  const [newReview, setNewReview] = useState<ReviewFormData>({
     rating: 5,
     comment: "",
   });
-  const [editingReview, setEditingReview] = useState(null);
-  const [hover, setHover] = useState(null);
+  const [editingReview, setEditingReview] = useState<ReviewWithUser | null>(null);
+  const [hover, setHover] = useState<number | null>(null);
+  const [canReview, setCanReview] = useState<boolean>(false);
+  const [hasAlreadyReviewed, setHasAlreadyReviewed] = useState<boolean>(false);
 
   useEffect(() => {
-    loadReviews();
-  }, [productId]);
+    if (productId) {
+      loadReviews();
+      if (sessionUser) {
+        checkReviewStatus();
+      }
+    }
+  }, [productId, sessionUser]);
+
+  const checkReviewStatus = async () => {
+    try {
+      if (sessionUser && productId) {
+        const [hasPurchased, reviewed] = await Promise.all([
+          hasUserPurchased(sessionUser.id, productId),
+          hasUserReviewed(sessionUser.id, productId),
+        ]);
+        setCanReview(hasPurchased);
+        setHasAlreadyReviewed(reviewed);
+      }
+    } catch (error) {
+      console.error("Error checking review status:", error);
+      setCanReview(false);
+      setHasAlreadyReviewed(false);
+    }
+  };
 
   const loadReviews = async () => {
     try {
-      const reviewsData = await ReviewAPI.getProductReviews(productId);
-      setReviews(reviewsData);
+      if (productId) {
+        const reviewsData = await getProductReviews(productId);
+        setReviews(reviewsData);
+      }
     } catch (error) {
       console.error("Error loading reviews:", error);
       toast.error("Failed to load reviews");
     }
   };
 
-  const handleReviewSubmit = async (e) => {
+  const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!sessionUser) {
+    if (!sessionUser || !productId) {
       toast.error("Please login to submit a review");
+      return;
+    }
+
+    if (!canReview) {
+      toast.error("You can only review products you have purchased");
+      return;
+    }
+
+    if (hasAlreadyReviewed) {
+      toast.error("You have already reviewed this product");
       return;
     }
 
@@ -40,18 +97,19 @@ const ReviewComponent = ({ productId, sessionUser }) => {
     }
 
     try {
-      const reviewData = {
+      const reviewData: AddReviewData = {
         userId: sessionUser.id,
         productId: productId,
-        rating: parseInt(newReview.rating),
+        rating: newReview.rating,
         comment: newReview.comment,
         date: new Date().toISOString(),
       };
 
-      await ReviewAPI.addReview(productId, reviewData);
+      await addReview(productId, reviewData);
       toast.success("Review submitted successfully");
 
       loadReviews();
+      setHasAlreadyReviewed(true);
       setNewReview({
         rating: 5,
         comment: "",
@@ -59,14 +117,21 @@ const ReviewComponent = ({ productId, sessionUser }) => {
       setHover(null);
     } catch (error) {
       console.error("Error submitting review:", error);
-      toast.error("Failed to submit review");
+      toast.error(error instanceof Error ? error.message : "Failed to submit review");
     }
   };
 
-  const handleEditSubmit = async (e) => {
+  const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!editingReview || !productId) return;
+
     try {
-      await ReviewAPI.updateReview(editingReview.id, editingReview);
+      const updateData: UpdateReviewData = {
+        rating: editingReview.rating,
+        comment: editingReview.comment,
+      };
+
+      await updateReview(editingReview.id, updateData);
       toast.success("Review updated successfully");
       setEditingReview(null);
       loadReviews();
@@ -76,11 +141,14 @@ const ReviewComponent = ({ productId, sessionUser }) => {
     }
   };
 
-  const handleDeleteReview = async (reviewId) => {
+  const handleDeleteReview = async (reviewId: number) => {
+    if (!productId) return;
+
     if (window.confirm("Are you sure you want to delete this review?")) {
       try {
-        await ReviewAPI.deleteReview(productId, reviewId);
+        await deleteReview(productId, reviewId);
         toast.success("Review deleted successfully");
+        setHasAlreadyReviewed(false);
         loadReviews();
       } catch (error) {
         console.error("Error deleting review:", error);
@@ -89,13 +157,13 @@ const ReviewComponent = ({ productId, sessionUser }) => {
     }
   };
 
-  const getAverageRating = () => {
+  const getAverageRating = (): number => {
     if (reviews.length === 0) return 0;
     const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
     return sum / reviews.length;
   };
 
-  const renderStars = (rating, isEditable = false, onRatingChange = null, size = 24) => {
+  const renderStars = (rating: number, isEditable = false, onRatingChange?: (rating: number) => void, size = 24) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
@@ -109,7 +177,7 @@ const ReviewComponent = ({ productId, sessionUser }) => {
             color={i + 1 <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
             size={size}
             style={{ marginRight: "5px", cursor: "pointer" }}
-            onClick={() => onRatingChange(i + 1)}
+            onClick={() => onRatingChange?.(i + 1)}
             onMouseEnter={() => setHover(i + 1)}
             onMouseLeave={() => setHover(null)}
           />
@@ -128,8 +196,8 @@ const ReviewComponent = ({ productId, sessionUser }) => {
     return stars;
   };
 
-  const renderReviewItem = (review) => {
-    const isOwnReview = sessionUser && String(review.userId) === String(sessionUser.id);
+  const renderReviewItem = (review: ReviewWithUser) => {
+    const isOwnReview = sessionUser && review.userId === sessionUser.id;
     const isEditing = editingReview && editingReview.id === review.id;
 
     if (isEditing) {
@@ -193,9 +261,13 @@ const ReviewComponent = ({ productId, sessionUser }) => {
     );
   };
 
+  if (!productId) {
+    return null;
+  }
+
   return (
     <div className="reviews-section">
-      {sessionUser && !editingReview && (
+      {sessionUser && !editingReview && canReview && !hasAlreadyReviewed && (
         <Card className="mb-4">
           <Card.Body>
             <Card.Title>Write a Review</Card.Title>
@@ -225,12 +297,28 @@ const ReviewComponent = ({ productId, sessionUser }) => {
           </Card.Body>
         </Card>
       )}
+      {sessionUser && !canReview && (
+        <Card className="mb-4">
+          <Card.Body>
+            <Card.Text className="text-muted">You can only review products that you have purchased.</Card.Text>
+          </Card.Body>
+        </Card>
+      )}
+      {sessionUser && canReview && hasAlreadyReviewed && !editingReview && (
+        <Card className="mb-4">
+          <Card.Body>
+            <Card.Text className="text-muted">
+              You have already reviewed this product. You can edit or delete your review below.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      )}
 
       <Card>
         <Card.Body>
           <Card.Title>Reviews</Card.Title>
           <div className="d-flex align-items-center mb-3">
-            {renderStars(getAverageRating(), false, null, 36)} {/* Larger stars for average rating */}
+            {renderStars(getAverageRating(), false, undefined, 36)}
             <span className="ms-2">({reviews.length} reviews)</span>
           </div>
 
