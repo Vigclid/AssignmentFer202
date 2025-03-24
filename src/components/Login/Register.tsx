@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { IAccount } from "../../Interfaces/ProjectInterfaces";
 import { LoginGoogle } from "./LoginGoogle";
-import { Typography } from "antd";
 
 
 
