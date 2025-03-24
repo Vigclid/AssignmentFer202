@@ -26,10 +26,10 @@
     },
     {
       "id": "4",
-      "username": "manager_user",
-      "email": "manager@example.com",
+      "username": "admin_user2",
+      "email": "admin2@example.com",
       "password": "232323",
-      "role": "manager",
+      "role": "admin",
       "status": "active"
     },
     {
@@ -63,6 +63,23 @@
       "password": "123456",
       "role": "user",
       "status": "active"
+
+    },
+    {
+      "id": "8",
+      "email": "sondnde180896@fpt.edu.vn",
+      "username": "sondnde180896",
+      "password": "123456",
+      "role": "user",
+      "status": "active"
+    },
+    {
+      "id": "9",
+      "email": "ngandttds180213@fpt.edu.vn",
+      "username": "ngandttds180213",
+      "password": "123456",
+      "role": "user",
+      "status": "active"
     }
   ],
   "reviews": [
@@ -87,16 +104,32 @@
       "userId": "7",
       "productId": "1",
       "rating": 4,
-      "comment": "keke",
-      "date": "2025-03-24T21:06:11.780Z"
+      "comment": "kkaaa",
+      "date": "2025-03-24T15:54:39.196Z"
+    },
+    {
+      "id": "a5f6",
+      "userId": "2",
+      "productId": "2",
+      "rating": 5,
+      "comment": "bla",
+      "date": "2025-03-24T20:14:21.767Z"
+    },
+    {
+      "id": "933b",
+      "userId": 9,
+      "productId": "1",
+      "rating": 5,
+      "comment": "bla",
+      "date": "2025-03-24T20:24:43.624Z"
     }
   ],
   "products": [
     {
       "id": "1",
-      "name": "Áo phông nam cao cấp",
-      "price": 250000,
-      "description": "Áo phông chất liệu cotton thoáng mát, thiết kế trẻ trung.",
+      "name": "T-shirt for professional developer",
+      "price": 250005,
+      "description": "This is one of the best our product, providing AI Agent, supporting while seating of the chair for coding.",
       "imageUrl": "/images/ao-phong-nam.jpg",
       "reviews": [
         1,
@@ -105,26 +138,36 @@
         "7c5c",
         "776c",
         "3fc3",
-        "410d"
+        "2d9e",
+        "933b"
       ]
     },
     {
       "id": "2",
-      "name": "Quần jeans nữ skinny",
+      "name": "Skimmy girl jean",
       "price": 450000,
-      "description": "Quần jeans ôm sát, tôn dáng, chất liệu co giãn thoải mái.",
+      "description": "Good jean, Good cotton for good girl, You'll see how beauty you are!",
       "imageUrl": "/images/quan-jeans-nu.jpg",
       "reviews": [
         2,
-        4
+        4,
+        "a5f6"
       ]
     },
     {
       "id": "3",
-      "name": "Giày thể thao unisex",
-      "price": 800000,
-      "description": "Giày thể thao đa năng, phù hợp cho cả nam và nữ, đế êm, thiết kế hiện đại.",
+      "name": "Unisex sport shooes",
+      "price": 80000,
+      "description": "The best shooes ever that Ronaldo begging to buy it!",
       "imageUrl": "/images/giay-the-thao.jpg",
+      "reviews": []
+    },
+    {
+      "id": "4",
+      "name": "Testing payment product",
+      "price": 10000,
+      "description": "Developer viết vài chữ TypeScript thì không biết gì về ReactJs",
+      "imageUrl": "/images/testing.jpg",
       "reviews": []
     }
   ],
@@ -277,6 +320,22 @@
       ],
       "total": 3350000,
       "date": "2025-03-24"
+    },
+    {
+      "id": "10091252",
+      "userId": 6,
+      "products": [
+        {
+          "id": "4",
+          "name": "Testing payment product",
+          "price": 10000,
+          "description": "Developer viết vài chữ TypeScript thì không biết gì về ReactJs",
+          "imageUrl": "/images/testing.jpg",
+          "reviews": []
+        }
+      ],
+      "total": 10000,
+      "date": "2025-03-24"
     }
   ],
   "carts": [
@@ -301,31 +360,26 @@
     },
     {
       "user": 2,
-      "items": [],
-      "total": 0,
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 2
+        }
+      ],
+      "total": 900000,
       "id": "2-1742820746782"
     },
     {
       "id": "6-1742837888053",
       "user": 6,
-      "items": [
-        {
-          "productId": "2",
-          "quantity": 1
-        }
-      ],
-      "total": 450000
+      "items": [],
+      "total": 0
     },
     {
-      "user": 7,
-      "items": [
-        {
-          "productId": "1",
-          "quantity": 2
-        }
-      ],
-      "total": 500000,
-      "id": "7-1742849050314"
+      "id": "9-1742847861541",
+      "user": 9,
+      "items": [],
+      "total": 0
     }
   ]
 }

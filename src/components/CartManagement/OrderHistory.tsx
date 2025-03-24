@@ -1,4 +1,3 @@
-// src/Components/CartManagement/OrderHistory.tsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
@@ -10,18 +9,16 @@ export const OrderHistory = () => {
     const [user, setUser] = useState<IAccount | null>(null);
     const navigate = useNavigate();
 
-    // Lấy thông tin người dùng từ sessionStorage
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
         if (authData) {
             const parsedUser: IAccount = JSON.parse(authData);
             setUser(parsedUser);
         } else {
-            navigate("/"); // Chuyển hướng về trang đăng nhập nếu chưa đăng nhập
+            navigate("/");
         }
     }, [navigate]);
 
-    // Tải lịch sử thanh toán
     useEffect(() => {
         const fetchPaymentHistories = async () => {
             if (user) {
@@ -37,7 +34,6 @@ export const OrderHistory = () => {
         if (user) fetchPaymentHistories();
     }, [user]);
 
-    // Quay lại trang danh sách sản phẩm
     const handleBackToProducts = () => {
         navigate("/products");
     };
