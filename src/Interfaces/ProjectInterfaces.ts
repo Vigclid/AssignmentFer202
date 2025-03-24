@@ -32,15 +32,14 @@ export interface IAccount {
     date: string; 
   }
   
-  
-  
-  export interface ICartItem {
-    user : number;
-    product: IProduct;
-    quantity: number;
-  }
-  
-  export interface ICart {
-    items: ICartItem[];
-    total: number;
-  }
+  // Interface mới cho cấu trúc carts
+export interface ICartItem {
+  productId: number; // Thay vì product, dùng productId để khớp với db.json
+  quantity: number;
+}
+
+export interface ICart {
+  user: number;
+  items: ICartItem[];
+  total: number;
+}

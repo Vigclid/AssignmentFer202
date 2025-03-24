@@ -113,23 +113,6 @@
         "date": "2024-03-22"
       }
     ],
-    "cartItems": [
-      {
-        "user": 1,
-        "product": 1,
-        "quantity": 2
-      },
-      {
-        "user": 1,
-        "product": 2,
-        "quantity": 1
-      },
-      {
-        "user": 2,
-        "product": 3,
-        "quantity": 1
-      }
-    ],
     "carts": [
       {
         "user" : 1,
