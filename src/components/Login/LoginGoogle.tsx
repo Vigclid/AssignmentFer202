@@ -46,9 +46,7 @@ export const LoginGoogle: React.FC<LoginGoogleProps> = ({ userAccount }) => {
                         sessionStorage.setItem("auth", JSON.stringify(newUser));
                         sessionStorage.setItem("userRole", "user");
                         alert("Account created successfully! Your password is 123456");
-                        setTimeout(() => {
-                            navigate("/");
-                        }, 0);
+                        navigate("/home");
                     })
                     .catch((error) => {
                         console.error("There was an error creating the account!", error);
