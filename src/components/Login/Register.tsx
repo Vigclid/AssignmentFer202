@@ -7,7 +7,6 @@ import { IAccount } from "../../Interfaces/ProjectInterfaces";
 import { LoginGoogle } from "./LoginGoogle";
 
 
-
 export const Register = () => {
 
   const navigate = useNavigate();

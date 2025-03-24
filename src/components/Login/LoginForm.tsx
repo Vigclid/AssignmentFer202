@@ -96,7 +96,7 @@ export const LoginForm = () => {
           sessionStorage.setItem("auth", JSON.stringify(_u));
           sessionStorage.setItem("userRole", _u.role);
           setTimeout(() => {
-            navigate("/home");
+            navigate("/products");
           }, 1000)
         }
       }

@@ -1,15 +1,15 @@
 export interface IProduct {
-  id: string;
+  id: string; // ID sản phẩm là string
   name: string;
   price: number;
   description: string;
   imageUrl?: string;
-  reviews?: string[];
+  reviews?: string[]; // Lưu danh sách ID đánh giá
 }
 
 export interface IReview {
-  id: string;
-  userId: string;
+  id: number; // Giữ kiểu number cho ID đánh giá
+  userId: number;
   productId: string;
   rating: number;
   comment: string;
@@ -31,9 +31,40 @@ export interface ISessionUser {
 
 export interface IAccount {
   id: number;
-  email: string;
   username: string;
-  password: string;
-  role: string;
+  email: string;
+  password?: string; // Cho phép password tùy chọn (không lưu trong frontend)
+  role: 'user' | 'manager' | 'admin'; // Kiểu role cố định
   status: string;
+}
+
+export interface IPaymentHistory {
+  id: number;
+  userId: number;
+  products: IProduct[];
+  total: number;
+  date: string;
+}
+
+export interface ICartItem {
+  productId: string; 
+  quantity: number;
+}
+
+export interface ICart {
+  user: number;
+  items: ICartItem[];
+  total: number;
+  id: string;
+}
+
+export interface GoogleUser {
+  email: string;
+  email_verified: boolean;
+  family_name: string;
+  given_name: string;
+  locale: string;
+  name: string;
+  picture: string;
+  sub: string; // Đổi `GLfloat` thành `string` vì ID Google thường là chuỗi
 }
