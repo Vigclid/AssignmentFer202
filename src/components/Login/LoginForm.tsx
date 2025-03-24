@@ -56,6 +56,10 @@ export const LoginForm = () => {
   const [userAccount, setUserAccount] = useState<IAccount[]>([]);
 
   useEffect(() => {
+
+    if (sessionStorage.getItem("auth")) {
+      navigate("/products");
+    }
     const _dataAccount = async () => {
       const _data = await axios.get(`http://localhost:5000/accounts`).then(res => res.data);
       setUserAccount(_data);

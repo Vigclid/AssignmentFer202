@@ -5,11 +5,22 @@ import { IProduct, ICart, IAccount, IPaymentHistory } from "../../Interfaces/Pro
 import { useNavigate } from "react-router-dom";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 
+
+const MY_BANK = {
+
+    BANK_ID: "970422", //MB Bank
+    ACCOUNT_NO: "0356759177",
+    TEMPLATE: "compact2",
+    ACCOUNT_NAME: "Doan Xuan Son"
+}
+
+
 export const Cart = () => {
     const [cart, setCart] = useState<ICart | null>(null);
     const [products, setProducts] = useState<IProduct[]>([]);
     const [user, setUser] = useState<IAccount | null>(null);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [success, setSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,6 +28,8 @@ export const Cart = () => {
         if (authData) {
             const parsedUser: IAccount = JSON.parse(authData);
             setUser(parsedUser);
+
+
         } else {
             navigate("/");
         }
@@ -52,7 +65,7 @@ export const Cart = () => {
 
     const updateCart = async (updatedCart: ICart) => {
         if (!user) return;
-
+        console.log("Updated cart:", updatedCart);
         setCart(updatedCart);
         sessionStorage.setItem(`cart_${user.id}`, JSON.stringify(updatedCart));
 
@@ -124,14 +137,17 @@ export const Cart = () => {
         setShowPaymentModal(true);
     };
 
-    const confirmPayment = async () => {
-        if (!cart || !user) return;
 
+    // Xác nhận đã thanh toán
+    const confirmPayment = async ({ transcode, parsedUser, parsedCart }: { transcode: number, parsedUser: IAccount, parsedCart: ICart }) => {
         const paymentHistory: IPaymentHistory = {
-            id: Date.now(),
-            userId: Number(user.id),
-            products: cart.items.map(item => {
-                const product = products.find(p => p.id === item.productId);
+            id: transcode,
+            userId: Number(parsedUser.id),
+
+            products: await Promise.all(parsedCart.items.map(async (item) => {
+                const _product : IProduct[] = await axios.get(`http://localhost:5000/products`).then(res => res.data);
+                const product = _product.find(p => p.id === item.productId);
+
                 return product || {
                     id: item.productId,
                     name: "Product does not exist",
@@ -140,16 +156,22 @@ export const Cart = () => {
                     imageUrl: "",
                     reviews: []
                 };
-            }),
-            total: cart.total,
+
+            })),
+            total: parsedCart.total,
+
             date: new Date().toISOString().split('T')[0]
         };
-
+    
         try {
-            await axios.post("http://localhost:5000/paymentHistories", paymentHistory);
 
-            const updatedCart: ICart = { ...cart, items: [], total: 0 };
-            await updateCart(updatedCart);
+            await axios.post(`http://localhost:5000/paymentHistories`, paymentHistory);
+    
+            // Xóa giỏ hàng
+            const updatedCart: ICart = { ...parsedCart, items: [], total: 0 };
+            await axios.put(`http://localhost:5000/carts/${parsedCart.id}`, updatedCart);
+            sessionStorage.setItem(`cart_${parsedUser.id}`, JSON.stringify(updatedCart));
+            // Đóng modal
 
             setShowPaymentModal(false);
             alert("Payment successful! Order has been saved to history.");
@@ -158,9 +180,80 @@ export const Cart = () => {
         }
     };
 
+
+
+    const QR = "https://img.vietqr.io/image/" + MY_BANK.BANK_ID + "-" +
+        MY_BANK.ACCOUNT_NO + "-" + MY_BANK.TEMPLATE + ".png?" +
+        "&addInfo=" + user?.id + user?.role + "&amount=" + cart?.total + "&accountName=" + MY_BANK.ACCOUNT_NAME
+    const AppScirpt = "https://script.googleusercontent.com/macros/echo?user_content_key=BkINLbtlTn49vfGL7uDFErRGyFRs-i-0j4f98qZpOrySgH3A4XWudFvBAnnOOluUkSRIgUXC0-Ikkbmzr1rJCIA5e_tt4tP5m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnDzsAlD6ug9FsXOxdoyN-BO226sy0AJl2UoKLOqjRp3h9KpIYTSbk9vet7j5ea-Rg4Ol3lRZLwCEBiCs-ictM-yoBFes96d7Hg&lib=MLQuxm21goJkl3evos7ArRqisV3GZFA2q"
+
+
     const handleBackToProducts = () => {
         navigate("/products");
     };
+
+
+    const checkPaid = async ({ parsedUser, parsedCart }: { parsedUser: IAccount, parsedCart: ICart }) => {
+        try {
+            if (success) return; // Nếu đã thanh toán, không kiểm tra nữa
+    
+            const response = await axios.get(AppScirpt);
+            const data = response.data;
+            const FinalRes = data.data;
+    
+            for (const BankData of FinalRes) {
+                const lastPrice = BankData["Giá trị"];
+                const lastContent = BankData["Mô tả"];
+                const lastTransCode = BankData["Mã GD"];
+                
+                if (String(lastContent).trim().includes(`${parsedUser?.id}${parsedUser?.role}`) && Number(lastPrice) === parsedCart?.total) {
+                    try {
+                        const response = await axios.get(`http://localhost:5000/paymentHistories/${lastTransCode}`);
+                        console.log("Trung transcode");
+                    } catch (error: unknown) {
+                        if (axios.isAxiosError(error) && error.response?.status === 404) {
+                                console.log("✅ Thanh toán thành công! Cập nhật success...");
+                                await confirmPayment({ transcode: Number(lastTransCode), parsedUser, parsedCart });
+                                window.location.href = "/order-history";
+                                setSuccess(true);
+                        } else {
+                            console.error("Lỗi khác:", error);
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("Lỗi:", err);
+        }
+    };
+
+    useEffect(() => {
+        let intervalId: NodeJS.Timeout | null = null;
+        const authData = sessionStorage.getItem("auth");
+
+        if (authData !== null) {
+            const parsedUser: IAccount = JSON.parse(authData);
+            const authCart = sessionStorage.getItem(`cart_${parsedUser?.id}`);
+            const parsedCart: ICart = authCart ? JSON.parse(authCart) : null;
+            if (!success) {
+                checkPaid({ parsedUser, parsedCart });
+                console.log("🔄 Bắt đầu kiểm tra thanh toán...");
+                intervalId = setInterval(() => {
+                    checkPaid({ parsedUser, parsedCart });
+                }, 2000);
+            }
+
+        } else {
+
+        }
+
+        return () => {
+            if (intervalId) {
+                console.log("⏹️ Dừng kiểm tra thanh toán...");
+                clearInterval(intervalId);
+            }
+        };
+    }, [success]);
 
     return (
         <Container className="my-5">
@@ -235,19 +328,12 @@ export const Cart = () => {
                 <Modal.Body className="text-center">
                     <p>Please scan the QR code to pay:</p>
                     <img
-                        src="https://static.vecteezy.com/system/resources/previews/012/487/823/original/3d-hand-press-pay-button-icon-phone-with-credit-card-float-on-transparent-mobile-banking-online-payment-service-withdraw-money-easy-shop-cashless-society-concept-cartoon-minimal-3d-render-png.png"
+                        src={QR}
                         alt="QR Code"
                         style={{ maxWidth: "100%", height: "auto" }}
                     />
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowPaymentModal(false)}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={confirmPayment}>
-                        Payment Confirmation
-                    </Button>
-                </Modal.Footer>
+
             </Modal>
         </Container>
     );

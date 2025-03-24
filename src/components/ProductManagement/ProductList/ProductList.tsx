@@ -1,10 +1,9 @@
-// src/Components/ProductList.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container, Row, Col, Form, Dropdown, Card, Button } from 'react-bootstrap';
-import { FaShoppingCart, FaHistory } from 'react-icons/fa'; // Thêm FaHistory
+import { FaShoppingCart, FaHistory } from 'react-icons/fa';
 import { IProduct, ICart, ICartItem, IAccount } from '../../../Interfaces/ProjectInterfaces';
 import './ProductList.css';
 
@@ -15,8 +14,11 @@ const ProductList: React.FC = () => {
     const [sortOrder, setSortOrder] = useState<string>('default');
     const [cart, setCart] = useState<ICart | null>(null);
     const [user, setUser] = useState<IAccount | null>(null);
+    const navigate = useNavigate(); // Added useNavigate
 
-    // Lấy thông tin người dùng từ sessionStorage
+
+    const navigate = useNavigate();
+  
     useEffect(() => {
         const authData = sessionStorage.getItem("auth");
         if (authData) {
@@ -25,7 +27,6 @@ const ProductList: React.FC = () => {
         }
     }, []);
 
-    // Tải danh sách sản phẩm và giỏ hàng của người dùng
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -54,7 +55,7 @@ const ProductList: React.FC = () => {
                         setCart(newCart);
                     }
                 } catch (error) {
-                    console.error("Lỗi khi lấy giỏ hàng:", error);
+                    console.error("Error fetching cart:", error);
                 }
             }
         };
@@ -63,18 +64,15 @@ const ProductList: React.FC = () => {
         if (user) fetchCart();
     }, [user]);
 
-    // Handle search by name and sort by price
     useEffect(() => {
         let updatedProducts = [...products];
 
-        // Filter by search term
         if (searchTerm) {
             updatedProducts = updatedProducts.filter((product) =>
                 product.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
-        // Sort by price
         if (sortOrder === 'lowToHigh') {
             updatedProducts.sort((a, b) => a.price - b.price);
         } else if (sortOrder === 'highToLow') {
@@ -84,20 +82,19 @@ const ProductList: React.FC = () => {
         setFilteredProducts(updatedProducts);
     }, [searchTerm, sortOrder, products]);
 
-    // Handle search input change
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
 
-    // Handle sort selection
     const handleSortChange = (order: string) => {
         setSortOrder(order);
     };
 
-    // Thêm sản phẩm vào giỏ hàng
     const addToCart = async (product: IProduct) => {
         if (!cart || !user) {
-            alert("Please login to add products to cart!");
+
+            alert("Please log in to add products to the cart!");
+
             return;
         }
 
@@ -132,23 +129,23 @@ const ProductList: React.FC = () => {
                 await axios.post("http://localhost:5000/carts", updatedCart);
             }
         } catch (error) {
-            console.error("Error updating cart on server:", error);
+
+            console.error("Error updating cart on the server:", error);
+
         }
     };
 
-    // Tính tổng số sản phẩm trong giỏ hàng
     const cartItemCount = cart
         ? cart.items.reduce((total, item) => total + item.quantity, 0)
         : 0;
 
     return (
         <Container className="product-list-container">
-            {/* Header with Search, Sort, Cart Icon, and Order History Icon */}
             <Row className="mb-4 align-items-center">
                 <Col md={4}>
                     <Form.Control
                         type="text"
-                        placeholder="Tìm kiếm sản phẩm theo tên..."
+                        placeholder="Search products by name..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="search-input"
@@ -157,33 +154,39 @@ const ProductList: React.FC = () => {
                 <Col md={4}>
                     <Dropdown onSelect={(eventKey: any) => handleSortChange(eventKey)}>
                         <Dropdown.Toggle variant="secondary" id="dropdown-sort">
-                            Sắp xếp theo giá
+                            Sort by price
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item eventKey="default">Mặc định</Dropdown.Item>
-                            <Dropdown.Item eventKey="lowToHigh">Từ thấp đến cao</Dropdown.Item>
-                            <Dropdown.Item eventKey="highToLow">Từ cao đến thấp</Dropdown.Item>
+                            <Dropdown.Item eventKey="default">Default</Dropdown.Item>
+                            <Dropdown.Item eventKey="lowToHigh">Low to High</Dropdown.Item>
+                            <Dropdown.Item eventKey="highToLow">High to Low</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
                 <Col md={4} className="text-end">
-                    {/* Icon giỏ hàng */}
-                    <Link to="/cart" className="me-3">
-                        <FaShoppingCart size={30} className="cart-icon" />
-                        {cartItemCount > 0 && (
-                            <span className="badge bg-danger rounded-pill ms-1">
-                                {cartItemCount}
-                            </span>
-                        )}
-                    </Link>
-                    {/* Icon lịch sử đơn hàng */}
-                    <Link to="/order-history">
-                        <FaHistory size={30} className="cart-icon" />
-                    </Link>
+                    {user?.role === 'admin' ? (
+                        <Button variant="primary" onClick={() => navigate("/products/manage")}>
+                            Manage Product
+                        </Button>
+                    ) : (
+                        <>
+                            <Button variant="link" onClick={() => navigate("/cart")} className="me-3">
+                                <FaShoppingCart size={30} className="cart-icon" />
+                                {cartItemCount > 0 && (
+                                    <span className="badge bg-danger rounded-pill ms-1">
+                                        {cartItemCount}
+                                    </span>
+                                )}
+                            </Button>
+                            <Button variant="link" onClick={() => navigate("/order-history")}>
+                                <FaHistory size={30} className="cart-icon" />
+                            </Button>
+                        </>
+                    )}
+
                 </Col>
             </Row>
 
-            {/* Product List */}
             <Row>
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map((product) => (
@@ -197,14 +200,18 @@ const ProductList: React.FC = () => {
                                 />
                                 <Card.Body>
                                     <Card.Title>{product.name}</Card.Title>
-                                    <Card.Text>{product.price.toLocaleString('vi-VN')} VNĐ</Card.Text>
+                                    <Card.Text>{product.price.toLocaleString('vi-VN')} VND</Card.Text>
                                     <div className="d-flex justify-content-between">
-                                        <Link to={`/products/${product.id}`}>
-                                            <Button variant="primary">Xem chi tiết</Button>
-                                        </Link>
-                                        <Button variant="success" onClick={() => addToCart(product)}>
-                                            Add to cart
+
+                                        <Button variant="primary" onClick={() => navigate(`/products/${product.id}`)}>
+                                            View Details
+
                                         </Button>
+                                        {user?.role !== 'admin' && (
+                                            <Button variant="success" onClick={() => addToCart(product)}>
+                                                Add to Cart
+                                            </Button>
+                                        )}
                                     </div>
                                 </Card.Body>
                             </Card>
@@ -212,13 +219,12 @@ const ProductList: React.FC = () => {
                     ))
                 ) : (
                     <Col>
-                        <p>Không tìm thấy sản phẩm nào.</p>
+                        <p>No products found.</p>
                     </Col>
                 )}
             </Row>
         </Container>
     );
 };
-
 
 export default ProductList;

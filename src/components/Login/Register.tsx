@@ -24,7 +24,7 @@ export const Register = () => {
 
 
 
-  const initialState = { email: "", password: "" ,username: "", isSubmitted: false };
+  const initialState = { email: "", password: "" ,username: "",  isSubmitted: false };
   const [state, dispatch] = useReducer(formReducer, initialState);
   const [errors, setErrors] = useState<any>({});
   const [succes, setSucces] = useState<Boolean>(false);
@@ -156,7 +156,7 @@ export const Register = () => {
           <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
         </Form.Group>
         <div className="d-flex justify-content-center">
-          <Button variant="warning" type="submit" className="my-2 w-100">Register</Button>
+          <Button variant="warning" type="submit" className="my-2 w-100" >Register</Button>
         </div>
         <div>
           <Link to="/" className="custom-link d-flex justify-content-center mb-3">
