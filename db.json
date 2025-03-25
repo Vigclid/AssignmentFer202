@@ -127,8 +127,8 @@
       "userId": "2",
       "productId": "1",
       "rating": 5,
-      "comment": "sdsf",
-      "date": "2025-03-24T21:40:19.784Z"
+      "comment": "sdsfasdfdsgdf",
+      "date": "2025-03-25T06:00:06.624Z"
     }
   ],
   "products": [
@@ -371,10 +371,14 @@
       "items": [
         {
           "productId": "3",
+          "quantity": 6
+        },
+        {
+          "productId": "2",
           "quantity": 2
         }
       ],
-      "total": 160000,
+      "total": 1380000,
       "id": "2-1742820746782"
     },
     {

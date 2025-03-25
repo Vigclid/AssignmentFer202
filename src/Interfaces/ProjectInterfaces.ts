@@ -35,7 +35,7 @@ export interface IAccount {
   username: string;
   email: string;
   password?: string; // Cho phép password tùy chọn (không lưu trong frontend)
-  role: 'user' | 'manager' | 'admin'; // Kiểu role cố định
+  role: 'user' | 'admin'; // Kiểu role cố định
   status: string;
 }
 
