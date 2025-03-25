@@ -63,7 +63,6 @@
       "password": "123456",
       "role": "user",
       "status": "active"
-
     },
     {
       "id": "8",
@@ -122,6 +121,14 @@
       "rating": 5,
       "comment": "bla",
       "date": "2025-03-24T20:24:43.624Z"
+    },
+    {
+      "id": "2ff5",
+      "userId": "7",
+      "productId": "3",
+      "rating": 5,
+      "comment": "yeeee",
+      "date": "2025-03-25T01:15:04.162Z"
     }
   ],
   "products": [
@@ -160,7 +167,9 @@
       "price": 80000,
       "description": "The best shooes ever that Ronaldo begging to buy it!",
       "imageUrl": "/images/giay-the-thao.jpg",
-      "reviews": []
+      "reviews": [
+        "2ff5"
+      ]
     },
     {
       "id": "4",
@@ -380,6 +389,17 @@
       "user": 9,
       "items": [],
       "total": 0
+    },
+    {
+      "id": "7-1742861239735",
+      "user": 7,
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 1
+        }
+      ],
+      "total": 250005
     }
   ]
 }
