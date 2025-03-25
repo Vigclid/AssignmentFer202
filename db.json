@@ -79,6 +79,14 @@
       "password": "123456",
       "role": "user",
       "status": "active"
+    },
+    {
+      "id": 10,
+      "email": "limbo04112004@gmail.com",
+      "username": "limbo04112004",
+      "password": "123456",
+      "role": "user",
+      "status": "active"
     }
   ],
   "reviews": [
@@ -382,8 +390,17 @@
     {
       "id": "6-1742837888053",
       "user": 6,
-      "items": [],
-      "total": 0
+      "items": [
+        {
+          "productId": "2",
+          "quantity": 1
+        },
+        {
+          "productId": "1",
+          "quantity": 1
+        }
+      ],
+      "total": 700005
     },
     {
       "id": "9-1742847861541",

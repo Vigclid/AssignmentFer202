@@ -28,7 +28,7 @@ export const LoginGoogle: React.FC<LoginGoogleProps> = ({ userAccount }) => {
       if (user) {
         sessionStorage.setItem("auth", JSON.stringify(user));
         sessionStorage.setItem("userRole", user.role);
-        navigate("/home");
+        navigate("/products");
       } else {
         const maxId = userAccount.length > 0 ? Math.max(...userAccount.map((user) => user.id)) : 0;
         const newId = maxId + 1;
@@ -46,7 +46,7 @@ export const LoginGoogle: React.FC<LoginGoogleProps> = ({ userAccount }) => {
                         sessionStorage.setItem("auth", JSON.stringify(newUser));
                         sessionStorage.setItem("userRole", "user");
                         alert("Account created successfully! Your password is 123456");
-                        navigate("/");
+                        navigate("/products");
                     })
                     .catch((error) => {
                         console.error("There was an error creating the account!", error);
