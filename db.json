@@ -20,7 +20,7 @@
       "id": "3",
       "username": "admin_user",
       "email": "admin@example.com",
-        "password": "141415",
+      "password": "141415",
       "role": "admin",
       "status": "active"
     },
@@ -33,12 +33,16 @@
       "status": "active"
     },
     {
-      "status": "active",
+      "status": "inactive",
       "id": "5"
     },
     {
-      "status": "active",
-      "id": "6"
+      "id": "6",
+      "email": "sonkksondepzai@gmail.com",
+      "username": "121212",
+      "password": "121212",
+      "role": "user",
+      "status": "active"
     },
     {
       "id": "7",

@@ -10,10 +10,7 @@ import { LoginGoogle } from "./LoginGoogle";
 
 
 export const LoginForm = () => {
-  
-
   const navigate = useNavigate();
-
   const formReducer = (state: typeof initialState, action: any) => {
     switch (action.type) {
       case "SET_FIELD":
@@ -24,15 +21,11 @@ export const LoginForm = () => {
         return state;
     }
   };
-
-
-
   const initialState = { email: "", password: "", isSubmitted: false };
   const [state, dispatch] = useReducer(formReducer, initialState);
   const [errors, setErrors] = useState<any>({});
   const [succes, setSucces] = useState<any>(false);
   const [banned, setBanned] = useState<any>(false);
-
   const [showAlert, setShowAlert] = useState(false);
   const handleValidation = () => {
     const newErrors: any = {};
@@ -45,14 +38,10 @@ export const LoginForm = () => {
     }, 1000)
     return Object.keys(newErrors).length === 0;
   };
-
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     dispatch({ type: "SET_FIELD", field: name, value });
   };
-
-
   const [userAccount, setUserAccount] = useState<IAccount[]>([]);
 
   useEffect(() => {
@@ -100,7 +89,12 @@ export const LoginForm = () => {
           sessionStorage.setItem("auth", JSON.stringify(_u));
           sessionStorage.setItem("userRole", _u.role);
           setTimeout(() => {
-            navigate("/products");
+            if (_u.role === "admin") {
+              navigate("/admin");
+            }
+            else {
+              navigate("/products");
+            }
           }, 1000)
         }
       }

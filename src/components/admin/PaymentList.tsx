@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import axios from "axios";
 import { Sidebar } from "./SideBar";
-import { IAccount, IProduct, IPaymentHistory,IUser } from "../../Interfaces/ProjectInterfaces";
+import { IAccount, IProduct, IPaymentHistory } from "../../Interfaces/ProjectInterfaces";
 import "./CSS/PaymentList.css";
 
 export const PaymentList = () => {
@@ -20,7 +20,6 @@ export const PaymentList = () => {
             const accountsResponse = await axios.get("http://localhost:5000/accounts");
             setAccounts(accountsResponse.data);
 
-
             const productsResponse = await axios.get("http://localhost:5000/products");
             setProducts(productsResponse.data);
         };
@@ -28,8 +27,8 @@ export const PaymentList = () => {
     }, []);
 
     const getUserName = (userId: number) => {
-        const user = accounts.find((account) => account.id === userId);
-        console.log("user", user);
+        console.log(accounts);
+        const user = accounts.find((account) => String(account.id).trim() === String(userId).trim());
         return user ? user.username : "Unknown User";
     };
 
@@ -37,7 +36,7 @@ export const PaymentList = () => {
         return productIds
             .map((productId) => {
                 // @ts-ignore
-                const product = products.find((p) => p.id === productId);
+                const product = products.find((p) => String(p.id).trim() === String(productId.id).trim());
                 return product ? product.name : "Unknown Product";
             })
             .join(", ");
