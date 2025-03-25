@@ -15,6 +15,9 @@ import Services from "./components/Review/FooterService/Services";
 import AboutUs from "./components/Review/FooterService/AboutUs";
 import WebDesign from "./components/Review/FooterService/WebDesign";
 import Development from "./components/Review/FooterService/Development";
+import {Dashboard} from './components/admin/Dashboard.tsx';
+import {UserList} from "./components/admin/UserList";
+import {PaymentList} from "./components/admin/PaymentList";
 
 function App() {
   return (
@@ -35,10 +38,14 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/web-design" element={<WebDesign />} />
           <Route path="/development" element={<Development />} />
+            <Route path="/admin" element={<Dashboard/>}></Route>
+        <Route path="/userlist" element={<UserList/>}></Route>
+      <Route path="/PaymentHistory" element={<PaymentList/>}> </Route>
         </Routes>
       </main>
       <Footer />
     </div>
+
   );
 }
 

@@ -105,6 +105,7 @@
       "rating": 4,
       "comment": "kkaaa",
       "date": "2025-03-24T15:54:39.196Z"
+
     },
     {
       "id": "a5f6",
@@ -382,6 +383,13 @@
     {
       "id": "6-1742837888053",
       "user": 6,
+      "items": [
+        {
+          "productId": "4",
+          "quantity": 1
+        }
+      ],
+      "total": 10000
       "items": [],
       "total": 0
     },
