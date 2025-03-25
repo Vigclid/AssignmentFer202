@@ -123,12 +123,12 @@
       "date": "2025-03-24T20:24:43.624Z"
     },
     {
-      "id": "2ff5",
-      "userId": "7",
-      "productId": "3",
+      "id": "767d",
+      "userId": "2",
+      "productId": "1",
       "rating": 5,
-      "comment": "yeeee",
-      "date": "2025-03-25T01:15:04.162Z"
+      "comment": "sdsf",
+      "date": "2025-03-24T21:40:19.784Z"
     }
   ],
   "products": [
@@ -146,7 +146,8 @@
         "776c",
         "3fc3",
         "2d9e",
-        "933b"
+        "933b",
+        "767d"
       ]
     },
     {
@@ -371,11 +372,11 @@
       "user": 2,
       "items": [
         {
-          "productId": "2",
+          "productId": "3",
           "quantity": 2
         }
       ],
-      "total": 900000,
+      "total": 160000,
       "id": "2-1742820746782"
     },
     {
