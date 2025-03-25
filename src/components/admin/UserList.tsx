@@ -22,7 +22,7 @@ export const UserList = () => {
     };
 
     const handleBanUser = async (userId: number) => {
-        await axios.put(`http://localhost:5000/accounts/${userId}`, { status: "inactive" });
+        await axios.patch(`http://localhost:5000/accounts/${userId}`, { status: "inactive" });
         setAccounts((prevAccounts) =>
             prevAccounts.map((account) =>
                 account.id === userId ? { ...account, status: "inactive" } : account
@@ -31,7 +31,7 @@ export const UserList = () => {
     };
 
     const handleUnbanUser = async (userId: number) => {
-        await axios.put(`http://localhost:5000/accounts/${userId}`, { status: "active" });
+        await axios.patch(`http://localhost:5000/accounts/${userId}`, { status: "active" });
         setAccounts((prevAccounts) =>
             prevAccounts.map((account) =>
                 account.id === userId ? { ...account, status: "active" } : account

@@ -6,6 +6,7 @@ import { Chart } from "./Chart";
 import { LineChart } from "./LineChart";
 import "./CSS/Dashboard.css";
 import {IProduct} from "../../Interfaces/ProjectInterfaces";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
     const [totalUsers, setTotalUsers] = useState(0);
@@ -13,6 +14,8 @@ export const Dashboard = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -33,13 +36,22 @@ export const Dashboard = () => {
     };
 
 
+    const goHome = () => {
+        navigate('/products')
+    }
+
     return (
         <div className="dashboard-wrapper position-relative">
-            <div className="header sticky-top p-3 text-white d-flex align-items-center justify-content-between">
+            <div className="header sticky-top p-3 text-white d-flex align-items-center justify-content-between bg-dark">
                 <h1 className="header_text">Admin Dashboard</h1>
-                <Button variant="light" onClick={toggleSidebar}>
-                    {isSidebarOpen ? "Close Menu" : "Open Menu"}
-                </Button>
+                <div>
+                    <Button variant="light" onClick={toggleSidebar} >
+                        {isSidebarOpen ? "Close Menu" : "Open Menu"}
+                    </Button>
+                    <Button variant="warning" onClick={goHome} className="ms-2">
+                        Home Page
+                    </Button>
+                </div>
             </div>
 
             <Container fluid>

@@ -34,7 +34,11 @@
     },
     {
       "status": "inactive",
-      "id": "5"
+      "id": "5",
+      "email": "abc@gmail.com",
+      "username": "depzai",
+      "password": "121212",
+      "role": "user"
     },
     {
       "id": "6",
@@ -390,17 +394,8 @@
     {
       "id": "6-1742837888053",
       "user": 6,
-      "items": [
-        {
-          "productId": "2",
-          "quantity": 1
-        },
-        {
-          "productId": "1",
-          "quantity": 1
-        }
-      ],
-      "total": 700005
+      "items": [],
+      "total": 0
     },
     {
       "id": "9-1742847861541",
