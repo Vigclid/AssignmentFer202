@@ -1,20 +1,12 @@
 {
   "accounts": [
     {
-      "id": "1",
-      "username": "john_doe",
-      "email": "john.doe@example.com",
-      "password": "121212",
-      "role": "user",
-      "status": "active"
+      "status": "active",
+      "id": "1"
     },
     {
-      "id": "2",
-      "username": "jane_smith",
-      "email": "jane.smith@example.com",
-      "password": "131313",
-      "role": "user",
-      "status": "active"
+      "status": "inactive",
+      "id": "2"
     },
     {
       "id": "3",
