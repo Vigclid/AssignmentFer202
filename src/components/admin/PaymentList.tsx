@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import axios from "axios";
 import { Sidebar } from "./SideBar";
-import { IAccount, IProduct, IPaymentHistory } from "../../Interfaces/ProjectInterfaces";
+import { IAccount, IProduct, IPaymentHistory,IUser } from "../../Interfaces/ProjectInterfaces";
 import "./CSS/PaymentList.css";
 
 export const PaymentList = () => {
@@ -15,9 +15,11 @@ export const PaymentList = () => {
         const fetchData = async () => {
             const paymentsResponse = await axios.get("http://localhost:5000/paymentHistories");
             setPaymentHistories(paymentsResponse.data);
+            console.log("fetchData",paymentHistories );
 
             const accountsResponse = await axios.get("http://localhost:5000/accounts");
             setAccounts(accountsResponse.data);
+
 
             const productsResponse = await axios.get("http://localhost:5000/products");
             setProducts(productsResponse.data);
@@ -27,6 +29,7 @@ export const PaymentList = () => {
 
     const getUserName = (userId: number) => {
         const user = accounts.find((account) => account.id === userId);
+        console.log("user", user);
         return user ? user.username : "Unknown User";
     };
 
