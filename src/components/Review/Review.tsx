@@ -249,7 +249,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ productId, sessionUser }) => {
                   <FaEdit />
                 </Button>
                 <Button variant="outline-danger" size="sm" onClick={() => handleDeleteReview(review.id)}>
-                  <FaTrash />
+                  <FaTrash  />
                 </Button>
               </div>
             )}
