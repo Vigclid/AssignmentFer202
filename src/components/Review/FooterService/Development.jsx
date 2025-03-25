@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./ServiceStyles.css";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import Particles from "./Particles";
 
 const Development = () => {
   useEffect(() => {
@@ -25,6 +26,16 @@ const Development = () => {
 
   return (
     <div className="service-page">
+      <Particles
+        particleColors={["#ffffff", "#ffffff"]}
+        particleCount={200}
+        particleSpread={10}
+        speed={0.1}
+        particleBaseSize={100}
+        moveParticlesOnHover={true}
+        alphaParticles={false}
+        disableRotation={false}
+      />
       <Link to="/home" className="back-home">
         <FaHome /> Back to Home
       </Link>

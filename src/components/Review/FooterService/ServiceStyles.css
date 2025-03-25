@@ -6,6 +6,16 @@
   position: relative;
 }
 
+.service-section {
+  position: relative;
+  z-index: 1;
+}
+
+.service-container {
+  position: relative;
+  z-index: 1;
+}
+
 .back-home {
   position: fixed;
   top: 20px;
