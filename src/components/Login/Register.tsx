@@ -24,7 +24,7 @@ export const Register = () => {
 
 
 
-  const initialState = { email: "", password: "" ,username: "",  isSubmitted: false };
+  const initialState = { email: "", password: "", username: "", isSubmitted: false };
   const [state, dispatch] = useReducer(formReducer, initialState);
   const [errors, setErrors] = useState<any>({});
   const [succes, setSucces] = useState<Boolean>(false);
@@ -80,15 +80,15 @@ export const Register = () => {
       const newId = maxId + 1;
 
       if (_u === null || _u === undefined) {
-        const newUser : IAccount = {
-          id : newId,
+        const newUser: IAccount = {
+          id: newId,
           email: state.email,
           username: state.username,
           password: state.password,
           role: "user",
           status: "active"
         }
-        
+
         axios.post(`http://localhost:5000/accounts`, newUser)
           .then(() => {
             setSucces(true);
@@ -101,7 +101,7 @@ export const Register = () => {
             console.error("There was an error creating the account!", error);
           });
 
-        
+
       } else {
         setDuplicatedEmail(true);
         setTimeout(() => {
@@ -162,19 +162,12 @@ export const Register = () => {
           <Link to="/" className="custom-link d-flex justify-content-center mb-3">
             Already have account? Login here
           </Link>
-
-
         </div>
-
-
-    
-
-
       </Form>
       {showAlert && (
         <Alert variant="danger" >
           <strong>Error :</strong> Don't let any field empty!
-        </Alert>    
+        </Alert>
       )}
       {succes && (
         <Alert variant="success">

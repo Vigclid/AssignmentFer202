@@ -26,7 +26,8 @@ export const PaymentList = () => {
     }, []);
 
     const getUserName = (userId: number) => {
-        const user = accounts.find((account) => account.id === userId);
+        console.log(accounts);
+        const user = accounts.find((account) => String(account.id).trim() === String(userId).trim());
         return user ? user.username : "Unknown User";
     };
 
@@ -34,7 +35,7 @@ export const PaymentList = () => {
         return productIds
             .map((productId) => {
                 // @ts-ignore
-                const product = products.find((p) => p.id === productId);
+                const product = products.find((p) => String(p.id).trim() === String(productId.id).trim());
                 return product ? product.name : "Unknown Product";
             })
             .join(", ");
